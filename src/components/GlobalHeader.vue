@@ -80,9 +80,14 @@ const originItems = [
     title: '用户管理',
   },
   {
-    key: 'others',
-    label: h('a', { href: 'https://www.codefather.cn', target: '_blank' }, '编程导航'),
-    title: '编程导航',
+    key: '/admin/categoryTagManage',
+    label: '分类标签管理',
+    title: '分类标签管理',
+  },
+  {
+    key: '关于我',
+    label: h('a', { href: 'https://blog.baolong.icu', target: '_blank' }, '关于我'),
+    title: '关于我',
   },
 ]
 

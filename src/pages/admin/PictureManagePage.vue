@@ -10,13 +10,21 @@
       <a-input v-model:value="searchParams.searchText" placeholder="从名称和简介搜索" allow-clear />
     </a-form-item>
     <a-form-item label="类型" name="category">
-      <a-input v-model:value="searchParams.category" placeholder="请输入类型" allow-clear />
+      <!--<a-input v-model:value="searchParams.category" placeholder="请输入类型" allow-clear />-->
+      <a-select
+        v-model:value="searchParams.category"
+        :options="categoryOptions"
+        placeholder="请选择分类"
+        style="min-width: 180px"
+        allowClear
+      />
     </a-form-item>
     <a-form-item label="标签" name="tags">
       <a-select
         v-model:value="searchParams.tags"
         mode="tags"
-        placeholder="请输入标签"
+        :options="tagOptions"
+        placeholder="请选择标签"
         style="min-width: 180px"
         allow-clear
       />
@@ -85,6 +93,7 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
 import { deletePictureUsingPost, listPictureByPageUsingPost } from '@/api/pictureController'
+import { pictureCategoryTagDataUsingGet } from '@/api/categoryTagController'
 
 const columns = [
   {
@@ -204,6 +213,37 @@ const doDelete = async (id: string) => {
     message.error('删除失败')
   }
 }
+
+
+// 分类和标签下拉框
+const categoryOptions = ref<string[]>([])
+const tagOptions = ref<string[]>([])
+
+// 获取标签和分类选项
+const getTagCategoryOptions = async () => {
+  const res = await pictureCategoryTagDataUsingGet()
+  if (res.data.code === 0 && res.data.data) {
+    // 转换成下拉选项组件接受的格式
+    tagOptions.value = (res.data.data.tagVOList ?? []).map((data: API.CategoryTagVO) => {
+      return {
+        value: data.id,
+        label: data.name,
+      }
+    })
+    categoryOptions.value = (res.data.data.categoryVOList ?? []).map((data: API.CategoryTagVO) => {
+      return {
+        value: data.id,
+        label: data.name,
+      }
+    })
+  } else {
+    message.error('加载选项失败，' + res.data.message)
+  }
+}
+
+onMounted(() => {
+  getTagCategoryOptions()
+})
 </script>
 
 <style scoped>

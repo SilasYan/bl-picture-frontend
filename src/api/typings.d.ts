@@ -17,6 +17,12 @@ declare namespace API {
     message?: string
   }
 
+  type BaseResponsePageCategoryTag_ = {
+    code?: number
+    data?: PageCategoryTag_
+    message?: string
+  }
+
   type BaseResponsePagePicture_ = {
     code?: number
     data?: PagePicture_
@@ -71,11 +77,46 @@ declare namespace API {
     message?: string
   }
 
+  type CategoryAddRequest = {
+    name?: string
+    type?: number
+  }
+
+  type CategoryQueryRequest = {
+    current?: number
+    id?: number
+    name?: string
+    pageSize?: number
+    sortField?: string
+    sortOrder?: string
+    type?: number
+    userId?: number
+  }
+
+  type CategoryTag = {
+    createTime?: string
+    editTime?: string
+    id?: number
+    isDelete?: number
+    name?: string
+    type?: number
+    updateTime?: string
+    useNum?: number
+    userId?: number
+  }
+
   type CategoryTagVO = {
     id?: number
     name?: string
     type?: number
     useNum?: number
+    userId?: number
+  }
+
+  type CategoryUpdateRequest = {
+    id?: number
+    name?: string
+    type?: number
   }
 
   type DeleteRequest = {
@@ -110,6 +151,14 @@ declare namespace API {
     userName?: string
     userProfile?: string
     userRole?: string
+  }
+
+  type PageCategoryTag_ = {
+    current?: number
+    pages?: number
+    records?: CategoryTag[]
+    size?: number
+    total?: number
   }
 
   type PagePicture_ = {
