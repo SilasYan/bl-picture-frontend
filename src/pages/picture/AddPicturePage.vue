@@ -3,8 +3,17 @@
     <h2 style="margin-bottom: 16px">
       {{ route.query?.id ? '修改图片' : '创建图片' }}
     </h2>
-
-    <PictureUpload :picture="picture" :onSuccess="onSuccess" />
+    <!-- 选择上传方式 -->
+    <a-tabs v-model:activeKey="uploadType"
+      >>
+      <a-tab-pane key="file" tab="文件上传">
+        <PictureUpload :picture="picture" :onSuccess="onSuccess" />
+      </a-tab-pane>
+      <a-tab-pane key="url" tab="URL 上传" force-render>
+        <UrlPictureUpload :picture="picture" :onSuccess="onSuccess" />
+      </a-tab-pane>
+    </a-tabs>
+    <!-- 图片其他信息 -->
     <a-form layout="vertical" :model="pictureForm" @finish="handleSubmit">
       <a-form-item label="名称" name="name">
         <a-input v-model:value="pictureForm.name" placeholder="请输入名称" />
@@ -53,7 +62,7 @@
 
       <a-form-item>
         <a-button type="primary" html-type="submit" style="width: 100%">
-          {{ route.query?.id ? '修改' : '修改' }}
+          {{ route.query?.id ? '修改' : '创建' }}
         </a-button>
       </a-form-item>
     </a-form>
@@ -67,9 +76,11 @@ import { message } from 'ant-design-vue'
 import { editPictureUsingPost, getPictureVoByIdUsingGet } from '@/api/pictureController'
 import { useRoute, useRouter } from 'vue-router'
 import { pictureCategoryTagDataUsingGet } from '@/api/categoryTagController'
+import UrlPictureUpload from '@/components/UrlPictureUpload.vue'
 
 const picture = ref<API.PictureVO>()
 const pictureForm = reactive<API.PictureEditRequest>({})
+const uploadType = ref<'file' | 'url'>('file')
 
 const onSuccess = (newPicture: API.PictureVO) => {
   picture.value = newPicture
@@ -187,16 +198,17 @@ const getOldPicture = async () => {
       picture.value = data
       pictureForm.name = data.name
       pictureForm.introduction = data.introduction
-      pictureForm.category = data.category
-      pictureForm.tags = data.tags
-      // 处理标签数据的回填问题
-      const tagIds = []
-      tagLabel.value.forEach((tag, index) => {
-        if (data.tags.includes(tag)) {
-          tagIds.push(tagOptions.value[index].value)
-        }
-      })
-      selectedTag.value = tagIds
+      pictureForm.category = data.categoryId
+      pictureForm.tags = data.tagIds
+      // // 处理标签数据的回填问题
+      // const tagIds = []
+      // tagLabel.value.forEach((tag, index) => {
+      //   if (data.tags.includes(tag)) {
+      //     tagIds.push(tagOptions.value[index].value)
+      //   }
+      // })
+      // selectedTag.value = tagIds
+      selectedTag.value = data.tagIds
     }
   }
 }
