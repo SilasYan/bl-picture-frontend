@@ -29,6 +29,15 @@
         allow-clear
       />
     </a-form-item>
+    <a-form-item label="审核状态" name="reviewStatus">
+      <a-select
+        v-model:value="searchParams.reviewStatus"
+        :options="PIC_REVIEW_STATUS_OPTIONS"
+        placeholder="请输入审核状态"
+        style="min-width: 180px"
+        allow-clear
+      />
+    </a-form-item>
     <a-form-item>
       <a-button type="primary" html-type="submit">搜索</a-button>
     </a-form-item>
@@ -41,6 +50,7 @@
     :data-source="dataList"
     :pagination="pagination"
     @change="doTableChange"
+    :scroll="{ x: 1300}"
   >
     <template #headerCell="{ column }">
       <template v-if="column.key === 'name'">
@@ -69,6 +79,13 @@
         <div>宽高比：{{ record.picScale }}</div>
         <div>大小：{{ (record.picSize / 1024).toFixed(2) }}KB</div>
       </template>
+      <!-- 审核信息 -->
+      <template v-if="column.dataIndex === 'reviewMessage'">
+        <div>审核状态：<a-tag :color="PIC_STATUS_TAG_COLOR[record.reviewStatus]">{{ PIC_REVIEW_STATUS_MAP[record.reviewStatus] }}</a-tag></div>
+        <div v-if="record.reviewMessage">审核信息：{{ record.reviewMessage }}</div>
+        <div v-if="record.reviewerId">审核人：{{ record.reviewerId }}</div>
+        <div v-if="record.reviewTime">审核时间：{{ dayjs(record.reviewTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
+      </template>
       <template v-else-if="column.dataIndex === 'createTime'">
         {{ dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss') }}
       </template>
@@ -76,7 +93,22 @@
         {{ dayjs(record.editTime).format('YYYY-MM-DD HH:mm:ss') }}
       </template>
       <template v-else-if="column.key === 'action'">
-        <a-space>
+        <a-space wrap>
+          <a-button
+            v-if="record.reviewStatus !== PIC_REVIEW_STATUS_ENUM.PASS"
+            type="link"
+            @click="handleReview(record, PIC_REVIEW_STATUS_ENUM.PASS)"
+          >
+            通过
+          </a-button>
+          <a-button
+            v-if="record.reviewStatus !== PIC_REVIEW_STATUS_ENUM.REJECT"
+            type="link"
+            danger
+            @click="handleReview(record, PIC_REVIEW_STATUS_ENUM.REJECT)"
+          >
+            拒绝
+          </a-button>
           <a-button type="link" :href="`/add_picture?id=${record.id}`" target="_blank"
             >编辑
           </a-button>
@@ -92,14 +124,19 @@ import { deleteUserUsingPost, listUserVoByPageUsingPost } from '@/api/userContro
 import { computed, onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
-import { deletePictureUsingPost, listPictureByPageUsingPost } from '@/api/pictureController'
+import { deletePictureUsingPost, doPictureReviewUsingPost, listPictureByPageUsingPost } from '@/api/pictureController'
 import { pictureCategoryTagDataUsingGet } from '@/api/categoryTagController'
+import {
+  PIC_REVIEW_STATUS_ENUM,
+  PIC_REVIEW_STATUS_MAP,
+  PIC_REVIEW_STATUS_OPTIONS,
+  PIC_STATUS_TAG_COLOR
+} from '@/constants/picture'
 
 const columns = [
   {
-    title: 'id',
+    title: 'ID',
     dataIndex: 'id',
-    width: 80,
   },
   {
     title: '图片',
@@ -127,9 +164,12 @@ const columns = [
     dataIndex: 'picInfo',
   },
   {
-    title: '用户 id',
+    title: '用户 ID',
     dataIndex: 'userId',
-    width: 80,
+  },
+  {
+    title: '审核信息',
+    dataIndex: 'reviewMessage',
   },
   {
     title: '创建时间',
@@ -142,6 +182,9 @@ const columns = [
   {
     title: '操作',
     key: 'action',
+    fixed: 'right',
+    align: 'center',
+    width: 200,
   },
 ]
 // 数据
@@ -244,6 +287,23 @@ const getTagCategoryOptions = async () => {
 onMounted(() => {
   getTagCategoryOptions()
 })
+
+const handleReview = async (record: API.Picture, reviewStatus: number) => {
+  const reviewMessage = reviewStatus === PIC_REVIEW_STATUS_ENUM.PASS ? '管理员操作通过' : '管理员操作拒绝'
+  const res = await doPictureReviewUsingPost({
+    id: record.id,
+    reviewStatus,
+    reviewMessage,
+  })
+  if (res.data.code === 0) {
+    message.success('审核操作成功')
+    // 重新获取列表
+    fetchData()
+  } else {
+    message.error('审核操作失败，' + res.data.message)
+  }
+}
+
 </script>
 
 <style scoped>
