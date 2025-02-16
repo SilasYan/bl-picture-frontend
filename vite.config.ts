@@ -15,4 +15,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    allowedHosts: [
+      '7f3eb210.r21.cpolar.top',  // Add the blocked host here
+    ],
+  },
 })

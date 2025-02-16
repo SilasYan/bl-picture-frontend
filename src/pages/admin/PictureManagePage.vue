@@ -1,7 +1,10 @@
 <template>
   <a-flex justify="space-between">
     <h2>图片管理</h2>
-    <a-button type="primary" href="/add_picture" target="_blank">+ 创建图片</a-button>
+    <a-space>
+      <a-button type="primary" href="/add_picture" target="_blank"><PlusCircleOutlined />创建图片</a-button>
+      <a-button type="primary" href="/add_picture/batch"><PlusCircleOutlined />批量创建图片</a-button>
+    </a-space>
   </a-flex>
 
   <!-- 搜索 -->
@@ -119,7 +122,7 @@
   </a-table>
 </template>
 <script lang="ts" setup>
-import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { SmileOutlined, DownOutlined, PlusCircleOutlined } from '@ant-design/icons-vue'
 import { deleteUserUsingPost, listUserVoByPageUsingPost } from '@/api/userController'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'

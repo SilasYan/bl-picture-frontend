@@ -121,7 +121,7 @@ const getTagCategoryOptions = async () => {
 // 搜索条件
 const searchParams = reactive<API.PictureQueryRequest>({
   current: 1,
-  pageSize: 12,
+  pageSize: 18,
   sortField: 'createTime',
   sortOrder: 'descend',
 })
@@ -138,6 +138,7 @@ const pagination = computed(() => {
       searchParams.pageSize = pageSize
       fetchData()
     },
+    pageSizeOptions: null,
   }
 })
 
