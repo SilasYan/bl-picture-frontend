@@ -43,8 +43,8 @@
             <a-descriptions-item label="宽高比">
               {{ picture.picScale ?? '-' }}
             </a-descriptions-item>
-            <a-descriptions-item label="大小">
-              {{ formatSize(picture.picSize) }}
+            <a-descriptions-item label="原图大小">
+              {{ formatSize(picture.originSize) }}
             </a-descriptions-item>
           </a-descriptions>
           <a-space wrap>
@@ -137,7 +137,7 @@ const doDelete = async () => {
 
 // 处理下载
 const doDownload = () => {
-  downloadImage(picture.value.url)
+  downloadImage(picture.value.originUrl)
 }
 
 onMounted(() => {
