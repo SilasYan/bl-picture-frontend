@@ -29,6 +29,13 @@
               </ASpace>
               <template #overlay>
                 <a-menu>
+                  <a-menu-item>
+                    <router-link to="/my_space">
+                      <UserOutlined />
+                      我的空间
+                    </router-link>
+                  </a-menu-item>
+
                   <a-menu-item @click="doLogout">
                     <LogoutOutlined />
                     退出登录
@@ -48,7 +55,7 @@
 
 <script lang="ts" setup>
 import { computed, h, ref } from 'vue'
-import { HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
@@ -85,6 +92,11 @@ const originItems = [
     title: '分类标签管理',
   },
   {
+    key: '/admin/spaceManage',
+    label: '空间管理',
+    title: '空间管理',
+  },
+  {
     key: '关于我',
     label: h('a', { href: 'https://blog.baolong.icu', target: '_blank' }, '关于我'),
     title: '关于我',
@@ -96,7 +108,7 @@ const filterMenus = (menus = [] as MenuProps['items']) => {
   return menus?.filter((menu) => {
     if (menu.key.startsWith('/admin')) {
       const loginUser = loginUserStore.loginUser
-      if (!loginUser || loginUser.userRole !== "admin") {
+      if (!loginUser || loginUser.userRole !== 'admin') {
         return false
       }
     }
@@ -136,7 +148,6 @@ const doLogout = async () => {
     message.error('退出登录失败，' + res.data.message)
   }
 }
-
 </script>
 
 <style scoped>
