@@ -4,9 +4,6 @@
     <a-flex justify="space-between">
       <h2>{{ space.spaceName }}（私有空间）</h2>
       <a-space size="middle">
-        <a-button type="primary" :href="`/add_picture?spaceId=${id}`" target="_blank">
-          + 创建图片
-        </a-button>
         <a-tooltip
           :title="`占用空间 ${formatSize(space.totalSize)} / ${formatSize(space.maxSize)}`"
         >
@@ -16,9 +13,14 @@
             :size="42"
           />
         </a-tooltip>
+        <a-button type="primary" :href="`/add_picture?spaceId=${id}`" target="_blank">
+          + 创建图片
+        </a-button>
       </a-space>
     </a-flex>
-    <div style="margin-bottom: 16px"/>
+    <div style="margin-bottom: 16px" />
+    <!-- 搜索条件 -->
+    <PictureSearchForm :onSearch="onSearch" />
     <!-- 图片列表 -->
     <PictureList :dataList="dataList" :loading="loading" :showOp="true" :onReload="fetchData" />
     <a-pagination
@@ -29,17 +31,17 @@
       :show-total="() => `图片总数 ${total} / ${space.maxCount}`"
       @change="onPageChange"
     />
-
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { listPictureVoByPageUsingPost } from '@/api/pictureController'
 import { message } from 'ant-design-vue'
 import { getSpaceVoByIdUsingGet } from '@/api/spaceController'
 import { formatSize } from '@/utils'
 import PictureList from '@/components/PictureList.vue'
+import PictureSearchForm from '@/components/PictureSearchForm.vue'
 
 const props = defineProps<{
   id: string | number
@@ -72,7 +74,7 @@ const total = ref(0)
 const loading = ref(true)
 
 // 搜索条件
-const searchParams = reactive<API.PictureQueryRequest>({
+const searchParams = ref<API.PictureQueryRequest>({
   current: 1,
   pageSize: 12,
   sortField: 'createTime',
@@ -81,8 +83,18 @@ const searchParams = reactive<API.PictureQueryRequest>({
 
 // 分页参数
 const onPageChange = (page, pageSize) => {
-  searchParams.current = page
-  searchParams.pageSize = pageSize
+  searchParams.value.current = page
+  searchParams.value.pageSize = pageSize
+  fetchData()
+}
+
+// 搜索
+const onSearch = (newSearchParams: API.PictureQueryRequest) => {
+  searchParams.value = {
+    ...searchParams.value,
+    ...newSearchParams,
+    current: 1,
+  }
   fetchData()
 }
 
@@ -92,7 +104,7 @@ const fetchData = async () => {
   // 转换搜索参数
   const params = {
     spaceId: props.id,
-    ...searchParams,
+    ...searchParams.value,
   }
   const res = await listPictureVoByPageUsingPost(params)
   if (res.data.data) {
