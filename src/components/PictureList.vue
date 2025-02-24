@@ -31,31 +31,47 @@
               </template>
             </a-card-meta>
             <template v-if="showOp" #actions>
-              <a-space @click="(e) => doSearch(picture, e)">
-                <SearchOutlined />
-                搜图
-              </a-space>
-              <a-space @click="(e) => doEdit(picture, e)">
-                <EditOutlined />
-                编辑
-              </a-space>
-              <a-space @click="(e) => doDelete(picture, e)">
-                <DeleteOutlined />
-                删除
-              </a-space>
+              <!--<template v-if="showOp" #actions>-->
+              <SearchOutlined @click="(e) => doSearch(picture, e)" />
+              <ShareAltOutlined @click="(e) => doShare(picture, e)" />
+              <EditOutlined @click="(e) => doEdit(picture, e)" />
+              <DeleteOutlined @click="(e) => doDelete(picture, e)" />
+              <!--</template>-->
+
+              <!--<a-space @click="(e) => doSearch(picture, e)">-->
+              <!--  <SearchOutlined />-->
+              <!--  搜图-->
+              <!--</a-space>-->
+              <!--<a-space @click="(e) => doEdit(picture, e)">-->
+              <!--  <EditOutlined />-->
+              <!--  编辑-->
+              <!--</a-space>-->
+              <!--<a-space @click="(e) => doDelete(picture, e)">-->
+              <!--  <DeleteOutlined />-->
+              <!--  删除-->
+              <!--</a-space>-->
             </template>
           </a-card>
         </a-list-item>
       </template>
     </a-list>
+    <!-- 分享弹框组件 -->
+    <ShareModal ref="shareModalRef" :link="shareLink" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+import {
+  SearchOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons-vue'
 import { deletePictureUsingPost } from '@/api/pictureController'
 import { message } from 'ant-design-vue'
+import ShareModal from '@/components/ShareModal.vue'
+import { ref } from 'vue'
 
 interface Props {
   dataList?: API.PictureVO[]
@@ -113,6 +129,19 @@ const doSearch = (picture, e) => {
   window.open(`/search_picture?pictureId=${picture.id}`)
 }
 
+// 分享弹窗引用
+const shareModalRef = ref()
+// 分享链接
+const shareLink = ref<string>()
+
+// 分享
+const doShare = (picture: API.PictureVO, e: Event) => {
+  e.stopPropagation()
+  shareLink.value = `${window.location.protocol}//${window.location.host}/picture/${picture.id}`
+  if (shareModalRef.value) {
+    shareModalRef.value.openModal()
+  }
+}
 </script>
 
 <style scoped></style>
