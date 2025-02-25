@@ -13,9 +13,8 @@
             :size="42"
           />
         </a-tooltip>
-        <a-button type="primary" :href="`/add_picture?spaceId=${id}`" target="_blank">
-          + 创建图片
-        </a-button>
+        <a-button type="primary" :href="`/add_picture?spaceId=${id}`" target="_blank"><PlusCircleOutlined />创建图片</a-button>
+        <a-button :icon="h(EditOutlined)" @click="doBatchEdit"> 批量编辑</a-button>
       </a-space>
     </a-flex>
     <div style="margin-bottom: 16px" />
@@ -35,11 +34,19 @@
       :show-total="() => `图片总数 ${total} / ${space.maxCount}`"
       @change="onPageChange"
     />
+    <!-- 批量编辑图片组件 -->
+    <BatchEditPictureModal
+      ref="batchEditPictureModalRef"
+      :spaceId="id"
+      :pictureList="dataList"
+      :onSuccess="onBatchEditPictureSuccess"
+    />
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { h, onMounted, ref } from 'vue'
 import {
   listPictureVoByPageUsingPost,
   searchPictureByColorUsingPost,
@@ -52,6 +59,8 @@ import PictureSearchForm from '@/components/PictureSearchForm.vue'
 // 导入颜色搜索依赖和 CSS 样式，按需导入
 import { ColorPicker } from 'vue3-colorpicker'
 import 'vue3-colorpicker/style.css'
+import BatchEditPictureModal from '@/components/BatchEditPictureModal.vue'
+import { EditOutlined, PlusCircleOutlined } from '@ant-design/icons-vue'
 
 const props = defineProps<{
   id: string | number
@@ -140,6 +149,21 @@ const onColorChange = async (color: string) => {
     total.value = data.length
   } else {
     message.error('获取数据失败，' + res.data.message)
+  }
+}
+
+// 分享弹窗引用
+const batchEditPictureModalRef = ref()
+
+// 批量编辑成功后，刷新数据
+const onBatchEditPictureSuccess = () => {
+  fetchData()
+}
+
+// 打开批量编辑弹窗
+const doBatchEdit = () => {
+  if (batchEditPictureModalRef.value) {
+    batchEditPictureModalRef.value.openModal()
   }
 }
 
