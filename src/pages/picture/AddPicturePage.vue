@@ -248,7 +248,9 @@ const getOldPicture = async () => {
       //   }
       // })
       // selectedTag.value = tagIds
-      selectedTag.value = data.tagIds
+      if (data.tagIds) {
+        selectedTag.value = data.tagIds
+      }
     }
   }
 }
