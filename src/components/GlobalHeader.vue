@@ -29,10 +29,16 @@
               </ASpace>
               <template #overlay>
                 <a-menu>
+                  <!--<a-menu-item>-->
+                  <!--  <router-link to="/my_space">-->
+                  <!--    <UserOutlined />-->
+                  <!--    我的空间-->
+                  <!--  </router-link>-->
+                  <!--</a-menu-item>-->
                   <a-menu-item>
-                    <router-link to="/my_space">
+                    <router-link to="/user/profile">
                       <UserOutlined />
-                      我的空间
+                      个人信息
                     </router-link>
                   </a-menu-item>
 
@@ -71,11 +77,11 @@ const originItems = [
     label: '主页',
     title: '主页',
   },
-  {
-    key: '/add_picture',
-    label: '创建图片',
-    title: '创建图片',
-  },
+  // {
+  //   key: '/add_picture',
+  //   label: '创建图片',
+  //   title: '创建图片',
+  // },
   {
     key: '/admin/pictureManage',
     label: '图片管理',
@@ -96,11 +102,11 @@ const originItems = [
     label: '空间管理',
     title: '空间管理',
   },
-  {
-    key: '关于我',
-    label: h('a', { href: 'https://blog.baolong.icu', target: '_blank' }, '关于我'),
-    title: '关于我',
-  },
+  // {
+  //   key: '关于我',
+  //   label: h('a', { href: 'https://blog.baolong.icu', target: '_blank' }, '关于我'),
+  //   title: '关于我',
+  // },
 ]
 
 // 过滤菜单项，根据某些规则

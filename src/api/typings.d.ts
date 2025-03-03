@@ -302,6 +302,7 @@ declare namespace API {
     userName?: string
     userProfile?: string
     userRole?: string
+    vipSign?: string
   }
 
   type Output = {
@@ -736,6 +737,7 @@ declare namespace API {
   }
 
   type User = {
+    birthday?: string
     createTime?: string
     editTime?: string
     id?: number
@@ -745,13 +747,16 @@ declare namespace API {
     updateTime?: string
     userAccount?: string
     userAvatar?: string
+    userEmail?: string
     userName?: string
     userPassword?: string
+    userPhone?: string
     userProfile?: string
     userRole?: string
     vipCode?: string
     vipExpireTime?: string
     vipNumber?: number
+    vipSign?: string
   }
 
   type UserAddRequest = {
@@ -786,20 +791,40 @@ declare namespace API {
   }
 
   type UserUpdateRequest = {
+    birthday?: string
     id?: number
+    userAccount?: string
     userAvatar?: string
+    userEmail?: string
     userName?: string
+    userPassword?: string
+    userPhone?: string
     userProfile?: string
     userRole?: string
+    vipCode?: string
+    vipExpireTime?: string
+    vipNumber?: number
+    vipSign?: string
+  }
+
+  type UserVipExchangeRequest = {
+    vipCode?: string
   }
 
   type UserVO = {
+    birthday?: string
     createTime?: string
     id?: number
     userAccount?: string
     userAvatar?: string
+    userEmail?: string
     userName?: string
+    userPhone?: string
     userProfile?: string
     userRole?: string
+    vipCode?: string
+    vipExpireTime?: string
+    vipNumber?: number
+    vipSign?: string
   }
 }

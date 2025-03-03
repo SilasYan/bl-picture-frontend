@@ -19,7 +19,12 @@
 
 <script lang="ts" setup>
 import { computed, h, ref, watchEffect } from 'vue'
-import { PictureOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons-vue'
+import {
+  PictureOutlined,
+  UserOutlined,
+  TeamOutlined,
+  CloudUploadOutlined,
+} from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
 import { SPACE_TYPE_ENUM } from '@/constants/space'
@@ -34,6 +39,11 @@ const fixedMenuItems = [
     key: '/',
     label: '公共图库',
     icon: () => h(PictureOutlined),
+  },
+  {
+    key: '/add_picture',
+    label: '上传图片',
+    icon: () => h(CloudUploadOutlined),
   },
   {
     key: '/my_space',
@@ -66,6 +76,10 @@ const teamSpaceList = ref<API.SpaceUserVO[]>([])
 const menuItems = computed(() => {
   // 没有团队空间，只展示固定菜单
   if (teamSpaceList.value.length < 1) {
+    if (!loginUserStore.loginUser.vipSign) {
+      // 去除 fixedMenuItems 里面的 key = '/add_space?type=' + SPACE_TYPE_ENUM.TEAM 的这一项
+      return fixedMenuItems.filter((item) => item.key !== '/add_space?type=' + SPACE_TYPE_ENUM.TEAM)
+    }
     return fixedMenuItems
   }
   // 展示团队空间分组
@@ -78,9 +92,16 @@ const menuItems = computed(() => {
   })
   const teamSpaceMenuGroup = {
     type: 'group',
-    label: '我的团队',
+    label: '团队空间',
     key: 'teamSpace',
     children: teamSpaceSubMenus,
+  }
+  if (!loginUserStore.loginUser.vipSign) {
+    // 去除 fixedMenuItems 里面的 key = '/add_space?type=' + SPACE_TYPE_ENUM.TEAM 的这一项
+    return [
+      ...fixedMenuItems.filter((item) => item.key !== '/add_space?type=' + SPACE_TYPE_ENUM.TEAM),
+      teamSpaceMenuGroup,
+    ]
   }
   return [...fixedMenuItems, teamSpaceMenuGroup]
 })

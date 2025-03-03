@@ -16,6 +16,7 @@ import SpaceDetailPage from '@/pages/space/SpaceDetailPage.vue'
 import SearchPicturePage from '@/pages/picture/SearchPicturePage.vue'
 import SpaceAnalyzePage from '@/pages/SpaceAnalyzePage.vue'
 import SpaceUserManagePage from '@/pages/admin/SpaceUserManagePage.vue'
+import UserProfilePage from '@/pages/user/UserProfilePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/user/register',
       name: '用户注册',
       component: UserRegisterPage,
+    },
+    {
+      path: '/user/profile',
+      name: '用户信息',
+      component: UserProfilePage,
     },
     {
       path: '/admin/userManage',
