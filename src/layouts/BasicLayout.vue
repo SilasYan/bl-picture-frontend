@@ -12,7 +12,8 @@
       </a-layout>
 
       <a-layout-footer class="footer">
-        <a href="https://blog.baolong.icu" target="_blank"> 暴龙博客 By 暴龙 </a>
+        <a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2024136487号-2</a>
+        <!--<a href="https://blog.baolong.icu" target="_blank"> 暴龙博客 By 暴龙 </a>-->
       </a-layout-footer>
     </a-layout>
   </div>
