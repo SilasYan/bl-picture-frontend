@@ -143,7 +143,6 @@ router.afterEach((to, from, next) => {
 // 用户注销
 const doLogout = async () => {
   const res = await userLogoutUsingPost()
-  console.log(res)
   if (res.data.code === 0) {
     loginUserStore.setLoginUser({
       userName: '未登录',

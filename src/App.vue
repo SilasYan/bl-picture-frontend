@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 import BasicLayout from '@/layouts/BasicLayout.vue'
-import { healthUsingGet } from '@/api/mainController'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
 
 // 国际化
@@ -17,10 +16,6 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 
 dayjs.locale('zh-cn')
-
-healthUsingGet().then((res) => {
-  console.log(res)
-})
 
 const loginUserStore = useLoginUserStore()
 loginUserStore.fetchLoginUser()

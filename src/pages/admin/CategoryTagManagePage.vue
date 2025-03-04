@@ -261,8 +261,6 @@ const edit = (key: string) => {
   editableData[key] = dataList.value.filter((item) => item.id === key)
 }
 const save = async (key: string) => {
-  console.log('save ', key)
-  console.log('editableData ', editableData[key][0])
   const res = await updateCategoryTagUsingPost(editableData[key][0])
   if (res.data.code === 0 && res.data.data) {
     message.success('修改成功')

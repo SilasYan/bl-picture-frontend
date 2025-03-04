@@ -186,7 +186,7 @@ const initWebsocket = () => {
 
   // 监听通知消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.INFO, (msg) => {
-    console.log('收到通知消息：', msg)
+    // console.log('收到通知消息：', msg)
     message.info(msg.message)
     // 如果进来的时候有用户正在编辑，则显示该用户信息
     if (msg.inUser) {
@@ -196,20 +196,20 @@ const initWebsocket = () => {
 
   // 监听错误消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.ERROR, (msg) => {
-    console.log('收到错误消息：', msg)
+    // console.log('收到错误消息：', msg)
     message.error(msg.message)
   })
 
   // 监听进入编辑状态消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.ENTER_EDIT, (msg) => {
-    console.log('收到进入编辑状态消息：', msg)
+    // console.log('收到进入编辑状态消息：', msg)
     message.info(msg.message)
     editingUser.value = msg.user
   })
 
   // 监听完成编辑状态消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.COMPLETE, (msg) => {
-    console.log('收到完成编辑状态消息：', msg)
+    // console.log('收到完成编辑状态消息：', msg)
     message.info(msg.message)
     // 刷新父组件
     props.onFlush?.(props.picture?.id)
@@ -219,7 +219,7 @@ const initWebsocket = () => {
 
   // 监听编辑操作消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.EDIT_ACTION, (msg) => {
-    console.log('收到编辑操作消息：', msg)
+    // console.log('收到编辑操作消息：', msg)
     message.info(msg.message)
     switch (msg.editAction) {
       case PICTURE_EDIT_ACTION_ENUM.ROTATE_LEFT:
@@ -239,7 +239,7 @@ const initWebsocket = () => {
 
   // 监听退出编辑状态消息
   websocket.on(PICTURE_EDIT_MESSAGE_TYPE_ENUM.EXIT_EDIT, (msg) => {
-    console.log('收到退出编辑状态消息：', msg)
+    // console.log('收到退出编辑状态消息：', msg)
     message.info(msg.message)
     editingUser.value = undefined
   })

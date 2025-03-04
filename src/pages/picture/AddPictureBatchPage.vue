@@ -86,7 +86,6 @@ const handleSubmit = async (values: any) => {
   formData.tags = tagList.value
   formData.inputTagList = inputTagList.value
 
-  console.log("参数：",formData)
   const res = await uploadPictureByBatchUsingPost({
     ...formData,
   })

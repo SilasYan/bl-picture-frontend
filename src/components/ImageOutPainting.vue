@@ -88,7 +88,6 @@ const createTask = async () => {
   })
   if (res.data.code === 0 && res.data.data) {
     message.success('创建任务成功，请耐心等待，不要退出界面')
-    console.log(res.data.data.output.taskId)
     taskId.value = res.data.data.output.taskId
     // 开启轮询
     startPolling()
