@@ -8,7 +8,7 @@
         </a-card>
       </a-col>
       <!-- 图片信息区 -->
-      <a-col :sm="24" :md="8" :xl="6">
+      <a-col v-if="loginUserStore.loginUser.userName !== '未登录'" :sm="24" :md="8" :xl="6">
         <a-card title="图片信息">
           <a-descriptions :column="1">
             <a-descriptions-item label="作者">
@@ -88,7 +88,7 @@
             </a-button>
           </a-space>
         </a-card>
-      </a-col>
+      </a-col >
     </a-row>
     <!-- 分享弹框组件 -->
     <ShareModal ref="shareModalRef" :link="shareLink" />
