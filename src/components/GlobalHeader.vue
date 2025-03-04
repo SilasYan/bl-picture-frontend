@@ -4,8 +4,8 @@
       <a-col flex="200px">
         <RouterLink to="/">
           <div class="title-bar">
-            <img class="logo" src="../assets/logo.jpeg" alt="logo" />
-            <div class="title">暴龙图库</div>
+            <img class="logo" src="../assets/logo.png" alt="logo" />
+            <!--<div class="title"></div>-->
           </div>
         </RouterLink>
       </a-col>
@@ -158,8 +158,9 @@ const doLogout = async () => {
 
 <style scoped>
 .title-bar {
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
+  margin: 0 auto;
 }
 
 .title {
@@ -169,6 +170,6 @@ const doLogout = async () => {
 }
 
 .logo {
-  height: 48px;
+  height: 60px;
 }
 </style>
