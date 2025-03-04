@@ -21,12 +21,15 @@ import { PlusOutlined, LoadingOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import type { UploadChangeParam, UploadProps } from 'ant-design-vue'
 import { uploadPictureUsingPost } from '@/api/pictureController'
+import { useLoginUserStore } from '@/stores/useLoginUserStore'
 
 interface Props {
   picture?: API.PictureVO
   spaceId?: number
   onSuccess?: (newPicture: API.PictureVO) => void
 }
+
+const loginUserStore = useLoginUserStore()
 
 const props = defineProps<Props>()
 
@@ -35,11 +38,14 @@ const beforeUpload = (file: UploadProps['fileList'][number]) => {
   if (!isJpgOrPng) {
     message.error('不支持上传该格式的图片，推荐 jpg 或 png')
   }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error('不能上传超过 2M 的图片')
+  if (!loginUserStore.loginUser.vipSign) {
+    const isLt2M = file.size / 1024 / 1024 < 2
+    if (!isLt2M) {
+      message.error('不能上传超过 2M 的图片')
+    }
+    return isJpgOrPng && isLt2M
   }
-  return isJpgOrPng && isLt2M
+  return isJpgOrPng
 }
 
 const loading = ref<boolean>(false)
@@ -91,5 +97,4 @@ const handleUpload = async ({ file }: any) => {
   margin-top: 8px;
   color: #666;
 }
-
 </style>
