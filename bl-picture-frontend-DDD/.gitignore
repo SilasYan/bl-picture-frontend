@@ -31,7 +31,3 @@ coverage
 
 ### 自定义 ###
 .vscode
-bl-picture-frontend-DDD/.idea
-bl-picture-frontend-DDD/.vscode
-bl-picture-frontend-DDD/dist
-bl-picture-frontend-DDD/node_modules
