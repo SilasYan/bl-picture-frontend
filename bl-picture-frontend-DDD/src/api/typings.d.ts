@@ -768,7 +768,10 @@ declare namespace API {
   }
 
   type UserLoginRequest = {
+    captchaCode?: string
+    captchaKey?: string
     userAccount?: string
+    userEmail?: string
     userPassword?: string
   }
 

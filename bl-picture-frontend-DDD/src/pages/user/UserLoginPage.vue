@@ -2,9 +2,13 @@
   <div id="userLoginPage">
     <h2 class="title">暴龙图库 - 用户登录</h2>
     <div class="desc">智能协同云图库</div>
-    <a-form :model="formState" name="basic" autocomplete="off" @finish="handleSubmit">
-      <a-form-item name="userAccount" :rules="[{ required: true, message: '请输入账号' }]">
-        <a-input v-model:value="formState.userAccount" placeholder="请输入账号" />
+    <a-form :model="loginFormData" name="basic" autocomplete="off" @finish="handleLogin">
+      <a-form-item name="userAccount" :rules="[{ required: true, message: '请输入邮箱/账号' }]">
+        <a-input
+          v-model:value="loginFormData.userAccount"
+          placeholder="请输入邮箱/账号"
+          style="height: 40px"
+        />
       </a-form-item>
       <a-form-item
         name="userPassword"
@@ -13,7 +17,23 @@
           { min: 8, message: '密码不能小于 8 位' },
         ]"
       >
-        <a-input-password v-model:value="formState.userPassword" placeholder="请输入密码" />
+        <a-input-password
+          v-model:value="loginFormData.userPassword"
+          placeholder="请输入密码"
+          style="height: 40px"
+        />
+      </a-form-item>
+      <a-form-item name="captchaCode" :rules="[{ required: true, message: '请输入验证码' }]">
+        <a-input
+          v-model:value="loginFormData.captchaCode"
+          placeholder="请输入账号"
+          style="height: 40px"
+        >
+          <template #prefix> 验证码</template>
+          <template #suffix>
+            <a-image :width="100" :src="captchaImage" :preview="false" @click="captcha" />
+          </template>
+        </a-input>
       </a-form-item>
       <div class="tips">
         没有账号？
@@ -27,35 +47,64 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import { userLoginUsingPost } from '@/api/userController'
 import { useLoginUserStore } from '@/stores/useLoginUserStore'
 import { useRouter } from 'vue-router'
+import { captchaUsingGet } from '@/api/mainController'
 
-const formState = reactive<API.UserLoginRequest>({
+const loginFormData = reactive<API.UserLoginRequest>({
   userAccount: '',
   userPassword: '',
+  captchaKey: '',
+  captchaCode: '',
 })
 
 const router = useRouter()
+
 const loginUserStore = useLoginUserStore()
 
+// 图形验证码图片 key
+const key = ref<string>()
+// 图形验证码图片地址
+const captchaImage = ref<string>()
+
 /**
- * 提交表单
- * @param values
+ * 获取图形验证码
  */
-const handleSubmit = async (values: any) => {
-  const res = await userLoginUsingPost(values)
+const captcha = async () => {
+  const res = await captchaUsingGet()
+  if (res.data.code === 0 && res.data.data) {
+    loginFormData.captchaKey = res.data.data.captchaKey
+    captchaImage.value = res.data.data.captchaImage
+  } else {
+    message.error('加载验证码失败，' + res.data.message)
+  }
+}
+
+/**
+ * 初始化页面
+ */
+onMounted(() => {
+  captcha()
+})
+
+/**
+ * 提交登录表单
+ */
+const handleLogin = async () => {
+  const res = await userLoginUsingPost(loginFormData)
   // 登录成功，把登录态保存到全局状态中
   if (res.data.code === 0 && res.data.data) {
-    await loginUserStore.fetchLoginUser()
     message.success('登录成功')
-    router.push({
+    loginUserStore.setLoginUser(res.data.data)
+    await router.push({
       path: '/',
       replace: true,
     })
   } else {
+    await captcha()
     message.error('登录失败，' + res.data.message)
   }
 }
@@ -84,5 +133,4 @@ const handleSubmit = async (values: any) => {
   font-size: 13px;
   text-align: right;
 }
-
 </style>
