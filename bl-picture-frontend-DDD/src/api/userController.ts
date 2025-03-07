@@ -2,6 +2,21 @@
 /* eslint-disable */
 import request from '@/request'
 
+/** sendEmailCode POST /api/user/send/email/code */
+export async function sendEmailCodeUsingPost(
+  body: API.UserRegisterRequest,
+  options?: { [key: string]: any }
+) {
+  return request<API.BaseResponseString_>('/api/user/send/email/code', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  })
+}
+
 /** addUser POST /api/user/add */
 export async function addUserUsingPost(body: API.UserAddRequest, options?: { [key: string]: any }) {
   return request<API.BaseResponseLong_>('/api/user/add', {

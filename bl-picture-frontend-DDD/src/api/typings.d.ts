@@ -786,8 +786,11 @@ declare namespace API {
 
   type UserRegisterRequest = {
     checkPassword?: string
+    codeKey?: string
+    codeValue?: string
     userAccount?: string
     userPassword?: string
+    userEmail?: string
   }
 
   type UserUpdateRequest = {
