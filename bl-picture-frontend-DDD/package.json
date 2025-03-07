@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "openapi": "node openapi.config.js",
-    "dev": "vite",
-    "pure-build": "vite build",
+    "dev": "vite --mode development",
+    "pure-build": "vite build --mode production",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

@@ -1,22 +1,14 @@
 import axios from 'axios'
 import { message } from 'ant-design-vue'
 
-// 区分开发和生产环境
-const DEV_BASE_URL = "http://localhost:8123";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 // 创建 Axios 实例
 const myAxios = axios.create({
-  baseURL: DEV_BASE_URL,
-  timeout: 10000,
+  baseURL: API_BASE_URL,
+  timeout: 60000,
   withCredentials: true,
 });
-
-
-// 创建 Axios 实例
-// const myAxios = axios.create({
-//   baseURL: 'http://localhost:8123',
-//   timeout: 60000,
-//   withCredentials: true,
-// })
 
 // 全局请求拦截器
 myAxios.interceptors.request.use(

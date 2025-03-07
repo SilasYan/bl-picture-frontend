@@ -20,4 +20,8 @@ export default defineConfig({
       '7f3eb210.r21.cpolar.top',  // Add the blocked host here
     ],
   },
+  // 动态注入开发环境
+  define: {
+    'process.env': process.env,
+  },
 })
