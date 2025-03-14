@@ -1,57 +1,66 @@
 <template>
   <div class="url-picture-upload">
-    <a-input-group compact style="margin-bottom: 16px">
+    <a-input-group compact style="margin-bottom: 16px" size="large">
       <a-input
-        v-model:value="fileUrl"
+        v-model:value="pictureUrl"
         style="width: calc(100% - 120px)"
         placeholder="请输入图片 URL"
       />
-      <a-button type="primary" :loading="loading" @click="handleUpload" style="width: 120px">
+      <a-button
+        type="primary"
+        :loading="uploadLoading"
+        @click="handleUploadPicture"
+        style="width: 120px"
+      >
         上传图片
       </a-button>
     </a-input-group>
     <img v-if="picture?.url" :src="picture?.url" alt="avatar" />
   </div>
 </template>
+
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { message } from 'ant-design-vue'
 import { uploadPictureByUrlUsingPost } from '@/api/pictureController'
 
+// 接收父组件参数，返回父组件参数
 interface Props {
   picture?: API.PictureVO
   spaceId?: number
-  onSuccess?: (newPicture: API.PictureVO) => void
+  uploadSuccess?: (newPicture: API.PictureVO) => void
 }
 
+// 把接收到的父组件参数做一个赋值
 const props = defineProps<Props>()
 
-const loading = ref<boolean>(false)
-const fileUrl = ref<string>()
-
+// 上传加载状态
+const uploadLoading = ref<boolean>(false)
+// 图片地址
+const pictureUrl = ref<string>()
 /**
- * 上传
+ * 上传图片
  */
-const handleUpload = async () => {
-  loading.value = true
+const handleUploadPicture = async () => {
+  uploadLoading.value = true
   try {
-    const params: API.PictureUploadRequest = { fileUrl: fileUrl.value }
+    const params: API.PictureUploadRequest = { pictureUrl: pictureUrl.value }
     if (props.picture) {
       params.id = props.picture.id
     }
-    params.spaceId = props.spaceId
-    const res = await uploadPictureByUrlUsingPost(params)
-    if (res.data.code === 0 && res.data.data) {
-      message.success('图片上传成功')
-      // 将上传成功的图片信息传递给父组件
-      props.onSuccess?.(res.data.data)
-    } else {
-      message.error('图片上传失败，' + res.data.message)
+    if (props.spaceId) {
+      params.spaceId = props.spaceId
     }
-  } catch (error) {
-    message.error('图片上传失败')
+    const res = await uploadPictureByUrlUsingPost(params)
+    if (res.code === 0 && res.data) {
+      message.success('图片上传成功!')
+      // 将上传成功的图片信息传递给父组件
+      props.uploadSuccess?.(res.data)
+    } else {
+      message.error('图片上传失败! ' + res.message)
+    }
   } finally {
-    loading.value = false
+    uploadLoading.value = false
   }
 }
 </script>
