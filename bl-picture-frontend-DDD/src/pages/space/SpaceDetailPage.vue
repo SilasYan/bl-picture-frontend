@@ -5,7 +5,7 @@
       <h2>{{ space.spaceName }}（{{ SPACE_TYPE_MAP[space.spaceType] }}）</h2>
       <a-space size="middle">
         <a-tooltip
-          :title="`占用空间 ${formatSize(space.totalSize)} / ${formatSize(space.maxSize)}`"
+          :title="`占用空间 ${formatPictureSize(space.totalSize)} / ${formatPictureSize(space.maxSize)}`"
         >
           <a-progress
             type="circle"
@@ -56,7 +56,7 @@
     </a-form-item>
     <!-- 图片列表 -->
     <PictureList
-      :dataList="dataList"
+      :pictureList="dataList"
       :loading="loading"
       :showOp="true"
       :onReload="fetchData"
@@ -86,11 +86,11 @@ import { computed, h, onMounted, ref, watch } from 'vue'
 import {
   listPictureVoByPageUsingPost,
   searchPictureByColorUsingPost,
-} from '@/api/pictureController'
+} from '@/api2/pictureController'
 import { message } from 'ant-design-vue'
-import { getSpaceVoByIdUsingGet } from '@/api/spaceController'
-import { formatSize } from '@/utils'
-import PictureList from '@/components/PictureList.vue'
+import { getSpaceVoByIdUsingGet } from '@/api2/spaceController'
+import { formatPictureSize } from '@/utils'
+import PictureList from '@/components/picture/HomePictureList.vue'
 import PictureSearchForm from '@/components/PictureSearchForm.vue'
 // 导入颜色搜索依赖和 CSS 样式，按需导入
 import { ColorPicker } from 'vue3-colorpicker'

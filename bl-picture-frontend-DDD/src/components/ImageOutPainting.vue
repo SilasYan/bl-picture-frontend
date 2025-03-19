@@ -37,7 +37,7 @@ import {
   createPictureOutPaintingTaskUsingPost, getPictureOutPaintingTaskUsingGet,
   uploadPictureByUrlUsingPost,
   uploadPictureUsingPost
-} from '@/api/pictureController'
+} from '@/api2/pictureController'
 import { message } from 'ant-design-vue'
 
 interface Props {

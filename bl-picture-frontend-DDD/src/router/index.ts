@@ -1,22 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import HomePage from '@/pages/HomePage.vue'
+import HomePage from '@/pages/picture/PicturePage.vue'
 import UserLoginPage from '@/pages/user/UserLoginPage.vue'
 import UserRegisterPage from '@/pages/user/UserRegisterPage.vue'
 import UserManagePage from '@/pages/admin/UserManagePage.vue'
-import AddPicturePage from '@/pages/picture/AddPicturePage.vue'
+import AddEditPicturePage from '@/pages/picture/AddEditPicturePage.vue'
 import PictureManagePage from '@/pages/admin/PictureManagePage.vue'
 import PictureDetailPage from '@/pages/picture/PictureDetailPage.vue'
-import CategoryTagManagePage from '@/pages/admin/CategoryTagManagePage.vue'
-import AddPictureBatchPage from '@/pages/picture/AddPictureBatchPage.vue'
+import CategoryManagePage from '@/pages/admin/CategoryManagePage.vue'
+import GrabPicturePage from '@/pages/picture/GrabPicturePage.vue'
 import SpaceManagePage from '@/pages/admin/SpaceManagePage.vue'
 import AddSpacePage from '@/pages/space/AddSpacePage.vue'
-import MySpacePage from '@/pages/space/MySpacePage.vue'
+import MySpacePage from '@/pages/space/SpacePage.vue'
+import SpacePage from '@/pages/space/SpacePage.vue'
 import SpaceDetailPage from '@/pages/space/SpaceDetailPage.vue'
 import SearchPicturePage from '@/pages/picture/SearchPicturePage.vue'
 import SpaceAnalyzePage from '@/pages/SpaceAnalyzePage.vue'
 import SpaceUserManagePage from '@/pages/admin/SpaceUserManagePage.vue'
 import UserProfilePage from '@/pages/user/UserProfilePage.vue'
+import PersonSpacePage from '@/pages/space/PersonSpacePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,41 +42,33 @@ const router = createRouter({
       name: '用户信息',
       component: UserProfilePage,
     },
+    // 图片页面
     {
-      path: '/admin/userManage',
-      name: '用户管理',
-      component: UserManagePage,
+      path: '/picture/addEdit',
+      name: '上传图片',
+      component: AddEditPicturePage,
     },
     {
-      path: '/add_picture',
-      name: '创建图片',
-      component: AddPicturePage,
+      path: '/picture/grab',
+      name: '爬取图片',
+      component: GrabPicturePage,
     },
     {
-      path: '/admin/pictureManage',
-      name: '图片管理',
-      component: PictureManagePage,
-    },
-    {
-      path: '/picture/:id',
+      path: '/picture/detail/:id',
       name: '图片详情',
       component: PictureDetailPage,
       props: true,
     },
+    // 空间页面
     {
-      path: '/admin/categoryTagManage',
-      name: '分类标签管理',
-      component: CategoryTagManagePage,
+      path: '/space',
+      name: '空间',
+      component: SpacePage,
     },
     {
-      path: '/add_picture/batch',
-      name: '批量创建图片',
-      component: AddPictureBatchPage,
-    },
-    {
-      path: '/admin/spaceManage',
-      name: '空间管理',
-      component: SpaceManagePage,
+      path: '/space/person',
+      name: '个人空间',
+      component: PersonSpacePage,
     },
     {
       path: '/add_space',
@@ -86,6 +79,27 @@ const router = createRouter({
       path: '/my_space',
       name: '我的空间',
       component: MySpacePage,
+    },
+    // 管理页面
+    {
+      path: '/admin/userManage',
+      name: '用户管理',
+      component: UserManagePage,
+    },
+    {
+      path: '/admin/pictureManage',
+      name: '图片管理',
+      component: PictureManagePage,
+    },
+    {
+      path: '/admin/categoryManage',
+      name: '分类管理',
+      component: CategoryManagePage,
+    },
+    {
+      path: '/admin/spaceManage',
+      name: '空间管理',
+      component: SpaceManagePage,
     },
     {
       path: '/space/:id',

@@ -2,12 +2,12 @@
 /* eslint-disable */
 import request from '@/request'
 
-/** addSpaceUser POST /api/spaceUser/add */
-export async function addSpaceUserUsingPost(
+/** addSpaceUserToSpace POST /api/spaceUser/add */
+export async function addSpaceUserToSpaceUsingPost(
   body: API.SpaceUserAddRequest,
   options?: { [key: string]: any }
 ) {
-  return request<API.BaseResponseLong_>('/api/spaceUser/add', {
+  return request<API.BaseResponseBoolean_>('/api/spaceUser/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,8 +32,8 @@ export async function deleteSpaceUserUsingPost(
   })
 }
 
-/** editSpaceUser POST /api/spaceUser/edit */
-export async function editSpaceUserUsingPost(
+/** editSpaceUserAuth POST /api/spaceUser/edit */
+export async function editSpaceUserAuthUsingPost(
   body: API.SpaceUserEditRequest,
   options?: { [key: string]: any }
 ) {
@@ -47,40 +47,17 @@ export async function editSpaceUserUsingPost(
   })
 }
 
-/** getSpaceUser POST /api/spaceUser/get */
-export async function getSpaceUserUsingPost(
-  body: API.SpaceUserQueryRequest,
+/** getSpaceUserPageListBySpaceId GET /api/spaceUser/list */
+export async function getSpaceUserPageListBySpaceIdUsingGet(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getSpaceUserPageListBySpaceIdUsingGETParams,
   options?: { [key: string]: any }
 ) {
-  return request<API.BaseResponseSpaceUser_>('/api/spaceUser/get', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return request<API.BaseResponsePageVOSpaceUserVO_>('/api/spaceUser/list', {
+    method: 'GET',
+    params: {
+      ...params,
     },
-    data: body,
-    ...(options || {}),
-  })
-}
-
-/** listSpaceUser POST /api/spaceUser/list */
-export async function listSpaceUserUsingPost(
-  body: API.SpaceUserQueryRequest,
-  options?: { [key: string]: any }
-) {
-  return request<API.BaseResponseListSpaceUserVO_>('/api/spaceUser/list', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  })
-}
-
-/** listMyTeamSpace POST /api/spaceUser/list/my */
-export async function listMyTeamSpaceUsingPost(options?: { [key: string]: any }) {
-  return request<API.BaseResponseListSpaceUserVO_>('/api/spaceUser/list/my', {
-    method: 'POST',
     ...(options || {}),
   })
 }

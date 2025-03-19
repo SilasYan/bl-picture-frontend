@@ -29,7 +29,7 @@
         <a href="https://blog.baolong.icu" target="_blank">JasonYan</a>。
       </a-typography-paragraph>
       <a-typography-paragraph v-for="spaceLevel in spaceLevelList">
-        {{ spaceLevel.text }}： 大小 {{ formatSize(spaceLevel.maxSize) }}， 数量
+        {{ spaceLevel.text }}： 大小 {{ formatPictureSize(spaceLevel.maxSize) }}， 数量
         {{ spaceLevel.maxCount }}
       </a-typography-paragraph>
     </a-card>
@@ -44,10 +44,10 @@ import {
   getSpaceVoByIdUsingGet,
   listSpaceLevelUsingGet,
   updateSpaceUsingPost,
-} from '@/api/spaceController'
+} from '@/api2/spaceController'
 import { useRoute } from 'vue-router'
 import { SPACE_LEVEL_ENUM, SPACE_LEVEL_OPTIONS, SPACE_TYPE_ENUM, SPACE_TYPE_MAP } from '@/constants/space'
-import { formatSize } from '@/utils'
+import { formatPictureSize } from '@/utils'
 import router from '@/router'
 
 const oldSpace = ref<API.SpaceVO>()

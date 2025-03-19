@@ -35,9 +35,9 @@
 
 <script setup lang="ts">
 import { defineProps, ref, withDefaults, defineExpose, reactive, onMounted } from 'vue'
-import { editPictureByBatchUsingPost } from '@/api/pictureController'
+import { editPictureByBatchUsingPost } from '@/api2/pictureController'
 import { message } from 'ant-design-vue'
-import { pictureCategoryTagDataUsingGet } from '@/api/categoryTagController'
+import { pictureCategoryTagDataUsingGet } from '@/api2/categoryTagController'
 
 // 定义组件属性类型
 interface Props {

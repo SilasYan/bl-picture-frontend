@@ -4,8 +4,8 @@
       <a-card title="存储空间" style="width: 50%">
         <div style="height: 320px; text-align: center">
           <h3>
-            {{ formatSize(data.usedSize) }} /
-            {{ data.maxSize ? formatSize(data.maxSize) : '无限制' }}
+            {{ formatPictureSize(data.usedSize) }} /
+            {{ data.maxSize ? formatPictureSize(data.maxSize) : '无限制' }}
           </h3>
           <a-progress type="dashboard" :percent="data.sizeUsageRatio ?? 0" />
         </div>
@@ -22,9 +22,9 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import { getSpaceUsageAnalyzeUsingPost } from '@/api/spaceAnalyzeController.ts'
+import { getSpaceUsageAnalyzeUsingPost } from '@/api2/spaceAnalyzeController.ts'
 import { message } from 'ant-design-vue'
-import { formatSize } from '@/utils'
+import { formatPictureSize } from '@/utils'
 
 interface Props {
   queryAll?: boolean

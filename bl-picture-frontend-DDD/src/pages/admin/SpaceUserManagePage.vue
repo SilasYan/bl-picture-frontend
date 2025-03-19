@@ -72,14 +72,14 @@ import { SmileOutlined, PlusCircleOutlined, BarChartOutlined } from '@ant-design
 import { computed, h, onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
-import { formatSize } from '@/utils'
+import { formatPictureSize } from '@/utils'
 import { SPACE_LEVEL_MAP, SPACE_LEVEL_OPTIONS, SPACE_ROLE_OPTIONS } from '@/constants/space'
 import {
   addSpaceUserUsingPost,
   deleteSpaceUserUsingPost,
   editSpaceUserUsingPost,
   listSpaceUserUsingPost,
-} from '@/api/spaceUserController'
+} from '@/api2/spaceUserController'
 
 // 表格列
 const columns = [
@@ -129,7 +129,7 @@ const fetchData = async () => {
 
 // 页面加载时请求一次
 onMounted(() => {
-  fetchData()
+  // fetchData()
 })
 
 // 编辑空间角色

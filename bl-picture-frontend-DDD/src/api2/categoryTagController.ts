@@ -2,7 +2,7 @@
 /* eslint-disable */
 import request from '@/request'
 
-/** addCategoryTag POST /api/categoryTag/add */
+/** addCategoryTag POST /api2/categoryTag/add */
 export async function addCategoryTagUsingPost(
   body: API.CategoryAddRequest,
   options?: { [key: string]: any }
@@ -17,7 +17,7 @@ export async function addCategoryTagUsingPost(
   })
 }
 
-/** pictureCategoryTagData GET /api/categoryTag/data/vo */
+/** pictureCategoryTagData GET /api2/categoryTag/data/vo */
 export async function pictureCategoryTagDataUsingGet(options?: { [key: string]: any }) {
   return request<API.BaseResponsePictureTagCategory_>('/api/categoryTag/data/vo', {
     method: 'GET',
@@ -25,7 +25,7 @@ export async function pictureCategoryTagDataUsingGet(options?: { [key: string]: 
   })
 }
 
-/** deleteCategoryTag POST /api/categoryTag/delete */
+/** deleteCategoryTag POST /api2/categoryTag/delete */
 export async function deleteCategoryTagUsingPost(
   body: API.DeleteRequest,
   options?: { [key: string]: any }
@@ -40,7 +40,7 @@ export async function deleteCategoryTagUsingPost(
   })
 }
 
-/** listCategoryTagByPage POST /api/categoryTag/list/page */
+/** listCategoryTagByPage POST /api2/categoryTag/list/page */
 export async function listCategoryTagByPageUsingPost(
   body: API.CategoryQueryRequest,
   options?: { [key: string]: any }
@@ -55,7 +55,7 @@ export async function listCategoryTagByPageUsingPost(
   })
 }
 
-/** updateCategoryTag POST /api/categoryTag/update */
+/** updateCategoryTag POST /api2/categoryTag/update */
 export async function updateCategoryTagUsingPost(
   body: API.CategoryUpdateRequest,
   options?: { [key: string]: any }

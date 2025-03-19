@@ -18,16 +18,9 @@
         required
       >
         <a-input v-model:value="registerFormData.userEmail" placeholder="请输入邮箱" size="large">
-          <!--<template #prefix>-->
-          <!--  <span>邮 箱</span>-->
-          <!--</template>-->
         </a-input>
       </a-form-item>
-      <a-form-item
-        name="codeValue"
-        :rules="[{ required: true, message: '请输入验证码' }]"
-        required
-      >
+      <a-form-item name="codeValue" :rules="[{ required: true, message: '请输入验证码' }]" required>
         <a-input-group compact>
           <a-input
             v-model:value="registerFormData.codeValue"
@@ -35,7 +28,6 @@
             size="large"
             style="width: calc(100% - 120px)"
           >
-            <!--<template #prefix>验证码</template>-->
           </a-input>
           <a-button type="primary" size="large" @click="handleSendCode" :disabled="countdown > 0">
             {{ countdown > 0 ? `${countdown}秒后重试` : '发送验证码' }}

@@ -76,7 +76,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import { message } from 'ant-design-vue'
-import { pictureCategoryTagDataUsingGet } from '@/api/categoryTagController'
+import { pictureCategoryTagDataUsingGet } from '@/api2/categoryTagController'
 import PictureQueryRequest = API.PictureQueryRequest
 import dayjs from 'dayjs'
 

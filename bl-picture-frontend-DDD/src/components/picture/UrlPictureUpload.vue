@@ -26,9 +26,9 @@ import { uploadPictureByUrlUsingPost } from '@/api/pictureController'
 
 // 接收父组件参数，返回父组件参数
 interface Props {
-  picture?: API.PictureVO
+  picture?: API.PictureDetailVO
   spaceId?: number
-  uploadSuccess?: (newPicture: API.PictureVO) => void
+  uploadSuccess?: (newPicture: API.PictureDetailVO) => void
 }
 
 // 把接收到的父组件参数做一个赋值

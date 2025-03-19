@@ -63,6 +63,7 @@ const loginFormData = reactive<API.UserLoginRequest>({
 
 const router = useRouter()
 
+// 登录用户仓库
 const loginUserStore = useLoginUserStore()
 
 // 图形验证码图片 key
@@ -75,11 +76,12 @@ const captchaImage = ref<string>()
  */
 const captcha = async () => {
   const res = await captchaUsingGet()
-  if (res.data.code === 0 && res.data.data) {
-    loginFormData.captchaKey = res.data.data.captchaKey
-    captchaImage.value = res.data.data.captchaImage
+  console.log(res)
+  if (res.code === 0 && res.data) {
+    loginFormData.captchaKey = res.data.captchaKey
+    captchaImage.value = res.data.captchaImage
   } else {
-    message.error('加载验证码失败，' + res.data.message)
+    message.error('加载验证码失败，' + res.message)
   }
 }
 
@@ -96,16 +98,17 @@ onMounted(() => {
 const handleLogin = async () => {
   const res = await userLoginUsingPost(loginFormData)
   // 登录成功，把登录态保存到全局状态中
-  if (res.data.code === 0 && res.data.data) {
+  if (res.code === 0 && res.data) {
     message.success('登录成功')
-    loginUserStore.setLoginUser(res.data.data)
+    console.log(res.data)
+    loginUserStore.setLoginUser(res.data)
     await router.push({
       path: '/',
       replace: true,
     })
   } else {
     await captcha()
-    message.error('登录失败，' + res.data.message)
+    message.error('登录失败，' + res.message)
   }
 }
 </script>

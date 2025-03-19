@@ -5,81 +5,33 @@ declare namespace API {
     message?: string
   }
 
-  type BaseResponseCreateOutPaintingTaskResponse_ = {
+  type BaseResponseCaptchaVO_ = {
     code?: number
-    data?: CreateOutPaintingTaskResponse
+    data?: CaptchaVO
     message?: string
   }
 
-  type BaseResponseGetOutPaintingTaskResponse_ = {
+  type BaseResponseListCategoryVO_ = {
     code?: number
-    data?: GetOutPaintingTaskResponse
+    data?: CategoryVO[]
     message?: string
   }
 
-  type BaseResponseInt_ = {
+  type BaseResponseListGrabPictureResult_ = {
     code?: number
-    data?: number
+    data?: GrabPictureResult[]
     message?: string
   }
 
-  type BaseResponseListImageSearchResult_ = {
+  type BaseResponseListSpaceDetailVO_ = {
     code?: number
-    data?: ImageSearchResult[]
+    data?: SpaceDetailVO[]
     message?: string
   }
 
-  type BaseResponseListPictureVO_ = {
+  type BaseResponseListSpaceLevelVO_ = {
     code?: number
-    data?: PictureVO[]
-    message?: string
-  }
-
-  type BaseResponseListSoImageSearchResult_ = {
-    code?: number
-    data?: SoImageSearchResult[]
-    message?: string
-  }
-
-  type BaseResponseListSpace_ = {
-    code?: number
-    data?: Space[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceCategoryAnalyzeResponse_ = {
-    code?: number
-    data?: SpaceCategoryAnalyzeResponse[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceLevel_ = {
-    code?: number
-    data?: SpaceLevel[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceSizeAnalyzeResponse_ = {
-    code?: number
-    data?: SpaceSizeAnalyzeResponse[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceTagAnalyzeResponse_ = {
-    code?: number
-    data?: SpaceTagAnalyzeResponse[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceUserAnalyzeResponse_ = {
-    code?: number
-    data?: SpaceUserAnalyzeResponse[]
-    message?: string
-  }
-
-  type BaseResponseListSpaceUserVO_ = {
-    code?: number
-    data?: SpaceUserVO[]
+    data?: SpaceLevelVO[]
     message?: string
   }
 
@@ -95,39 +47,39 @@ declare namespace API {
     message?: string
   }
 
-  type BaseResponsePageCategoryTag_ = {
+  type BaseResponsePageVOCategory_ = {
     code?: number
-    data?: PageCategoryTag_
+    data?: PageVOCategory_
     message?: string
   }
 
-  type BaseResponsePagePicture_ = {
+  type BaseResponsePageVOPictureHomeVO_ = {
     code?: number
-    data?: PagePicture_
+    data?: PageVOPictureHomeVO_
     message?: string
   }
 
-  type BaseResponsePagePictureVO_ = {
+  type BaseResponsePageVOPictureVO_ = {
     code?: number
-    data?: PagePictureVO_
+    data?: PageVOPictureVO_
     message?: string
   }
 
-  type BaseResponsePageSpace_ = {
+  type BaseResponsePageVOSpaceUserVO_ = {
     code?: number
-    data?: PageSpace_
+    data?: PageVOSpaceUserVO_
     message?: string
   }
 
-  type BaseResponsePageSpaceVO_ = {
+  type BaseResponsePageVOSpaceVO_ = {
     code?: number
-    data?: PageSpaceVO_
+    data?: PageVOSpaceVO_
     message?: string
   }
 
-  type BaseResponsePageUserVO_ = {
+  type BaseResponsePageVOUserVO_ = {
     code?: number
-    data?: PageUserVO_
+    data?: PageVOUserVO_
     message?: string
   }
 
@@ -137,39 +89,15 @@ declare namespace API {
     message?: string
   }
 
-  type BaseResponsePictureTagCategory_ = {
+  type BaseResponsePictureDetailVO_ = {
     code?: number
-    data?: PictureTagCategory
+    data?: PictureDetailVO
     message?: string
   }
 
-  type BaseResponsePictureVO_ = {
+  type BaseResponseSpaceDetailVO_ = {
     code?: number
-    data?: PictureVO
-    message?: string
-  }
-
-  type BaseResponseSpace_ = {
-    code?: number
-    data?: Space
-    message?: string
-  }
-
-  type BaseResponseSpaceUsageAnalyzeResponse_ = {
-    code?: number
-    data?: SpaceUsageAnalyzeResponse
-    message?: string
-  }
-
-  type BaseResponseSpaceUser_ = {
-    code?: number
-    data?: SpaceUser
-    message?: string
-  }
-
-  type BaseResponseSpaceVO_ = {
-    code?: number
-    data?: SpaceVO
+    data?: SpaceDetailVO
     message?: string
   }
 
@@ -185,44 +113,43 @@ declare namespace API {
     message?: string
   }
 
-  type BaseResponseUserVO_ = {
+  type BaseResponseUserDetailVO_ = {
     code?: number
-    data?: UserVO
+    data?: UserDetailVO
     message?: string
   }
 
-  type CategoryAddRequest = {
-    name?: string
-    type?: number
+  type CaptchaVO = {
+    captchaImage?: string
+    captchaKey?: string
   }
 
-  type CategoryQueryRequest = {
-    current?: number
-    id?: number
-    name?: string
-    pageSize?: number
-    sortField?: string
-    sortOrder?: string
-    type?: number
-    userId?: number
-  }
-
-  type CategoryTag = {
+  type Category = {
     createTime?: string
     editTime?: string
     id?: number
     isDelete?: number
     name?: string
-    type?: number
+    parentId?: number
     updateTime?: string
     useNum?: number
     userId?: number
   }
 
-  type CategoryTagVO = {
-    id?: number
+  type CategoryAddRequest = {
     name?: string
-    type?: number
+    parentId?: number
+  }
+
+  type CategoryQueryRequest = {
+    current?: number
+    id?: number
+    multipleSort?: boolean
+    name?: string
+    pageSize?: number
+    parentId?: number
+    sort?: Sort
+    sorts?: Sort[]
     useNum?: number
     userId?: number
   }
@@ -230,315 +157,411 @@ declare namespace API {
   type CategoryUpdateRequest = {
     id?: number
     name?: string
-    type?: number
+    parentId?: number
+    useNum?: number
   }
 
-  type CreateOutPaintingTaskResponse = {
-    code?: string
-    message?: string
-    output?: Output
-    requestId?: string
-  }
-
-  type CreatePictureOutPaintingTaskRequest = {
-    parameters?: Parameters
-    pictureId?: number
+  type CategoryVO = {
+    id?: number
+    name?: string
+    parentId?: number
+    useNum?: number
   }
 
   type DeleteRequest = {
     id?: number
   }
 
-  type GetOutPaintingTaskResponse = {
-    output?: Output1
-    requestId?: string
-  }
-
-  type getPictureByIdUsingGETParams = {
+  type getPictureDetailByIdUsingGETParams = {
     /** id */
     id?: number
   }
 
-  type getPictureOutPaintingTaskUsingGETParams = {
-    /** taskId */
-    taskId?: string
-  }
-
-  type getPictureVOByIdUsingGETParams = {
+  type getPictureInfoByIdUsingGETParams = {
     /** id */
     id?: number
   }
 
-  type getSpaceByIdUsingGETParams = {
+  type getPicturePageListAsHomeUsingGETParams = {
+    categoryId?: number
+    current?: number
+    endCreateTime?: string
+    endEditTime?: string
+    id?: number
+    multipleSort?: boolean
+    originColor?: string
+    originFormat?: string
+    originHeight?: number
+    originScale?: number
+    originWidth?: number
+    pageSize?: number
+    picDesc?: string
+    picName?: string
+    reviewMessage?: string
+    reviewStatus?: number
+    reviewerUser?: number
+    searchText?: string
+    'sort.asc'?: boolean
+    'sort.field'?: string
+    'sorts[0].asc'?: boolean
+    'sorts[0].field'?: string
+    spaceId?: number
+    startCreateTime?: string
+    startEditTime?: string
+    tags?: string
+    userId?: number
+  }
+
+  type getSpaceDetailByIdUsingGETParams = {
     /** id */
     id?: number
   }
 
-  type getSpaceVOByIdUsingGETParams = {
+  type getSpaceListAsUserUsingGETParams = {
+    current?: number
+    id?: number
+    multipleSort?: boolean
+    pageSize?: number
+    'sort.asc'?: boolean
+    'sort.field'?: string
+    'sorts[0].asc'?: boolean
+    'sorts[0].field'?: string
+    spaceLevel?: number
+    spaceName?: string
+    spaceType?: number
+    userId?: number
+  }
+
+  type getSpaceUserPageListBySpaceIdUsingGETParams = {
+    current?: number
+    id?: number
+    multipleSort?: boolean
+    pageSize?: number
+    'sort.asc'?: boolean
+    'sort.field'?: string
+    'sorts[0].asc'?: boolean
+    'sorts[0].field'?: string
+    spaceId?: number
+    spaceRole?: string
+    userId?: number
+  }
+
+  type getUserDetailByIdUsingGETParams = {
     /** id */
     id?: number
   }
 
-  type getUserByIdUsingGETParams = {
+  type getUserInfoByIdUsingGETParams = {
     /** id */
     id?: number
   }
 
-  type getUserVOByIdUsingGETParams = {
-    /** id */
-    id?: number
-  }
-
-  type ImageSearchResult = {
-    fromUrl?: string
-    thumbUrl?: string
+  type GrabPictureResult = {
+    handleImageUrl?: string
+    imageName?: string
+    imageUrl?: string
   }
 
   type LoginUserVO = {
+    birthday?: string
     createTime?: string
     id?: number
+    inviteUserId?: number
+    leftMenus?: string[]
+    otherMenus?: string[]
+    shareCode?: string
+    token?: string
+    topMenus?: string[]
     userAccount?: string
     userAvatar?: string
+    userEmail?: string
     userName?: string
+    userPhone?: string
     userProfile?: string
     userRole?: string
+    vipExpireTime?: string
+    vipNumber?: number
     vipSign?: string
   }
 
-  type Output = {
-    taskId?: string
-    taskStatus?: string
-  }
-
-  type Output1 = {
-    code?: string
-    endTime?: string
-    message?: string
-    outputImageUrl?: string
-    scheduledTime?: string
-    submitTime?: string
-    taskId?: string
-    taskMetrics?: TaskMetrics
-    taskStatus?: string
-  }
-
-  type PageCategoryTag_ = {
+  type PageVOCategory_ = {
     current?: number
+    pageSize?: number
     pages?: number
-    records?: CategoryTag[]
-    size?: number
+    records?: Category[]
     total?: number
   }
 
-  type PagePicture_ = {
+  type PageVOPictureHomeVO_ = {
     current?: number
+    pageSize?: number
     pages?: number
-    records?: Picture[]
-    size?: number
+    records?: PictureHomeVO[]
     total?: number
   }
 
-  type PagePictureVO_ = {
+  type PageVOPictureVO_ = {
     current?: number
+    pageSize?: number
     pages?: number
     records?: PictureVO[]
-    size?: number
     total?: number
   }
 
-  type PageSpace_ = {
+  type PageVOSpaceUserVO_ = {
     current?: number
+    pageSize?: number
     pages?: number
-    records?: Space[]
-    size?: number
+    records?: SpaceUserVO[]
     total?: number
   }
 
-  type PageSpaceVO_ = {
+  type PageVOSpaceVO_ = {
     current?: number
+    pageSize?: number
     pages?: number
     records?: SpaceVO[]
-    size?: number
     total?: number
   }
 
-  type PageUserVO_ = {
+  type PageVOUserVO_ = {
     current?: number
+    pageSize?: number
     pages?: number
     records?: UserVO[]
-    size?: number
     total?: number
-  }
-
-  type Parameters = {
-    addWatermark?: boolean
-    angle?: number
-    bestQuality?: boolean
-    bottomOffset?: number
-    leftOffset?: number
-    limitImageSize?: boolean
-    outputRatio?: string
-    rightOffset?: number
-    topOffset?: number
-    xScale?: number
-    yScale?: number
   }
 
   type Picture = {
-    category?: string
+    categoryId?: number
+    collectQuantity?: number
+    compressFormat?: string
+    compressPath?: string
+    compressSize?: number
     createTime?: string
+    downloadQuantity?: number
     editTime?: string
     id?: number
-    introduction?: string
     isDelete?: number
-    name?: string
+    isShare?: number
+    likeQuantity?: number
+    originColor?: string
+    originFormat?: string
+    originHeight?: number
+    originName?: string
+    originPath?: string
+    originScale?: number
     originSize?: number
     originUrl?: string
-    picColor?: string
-    picFormat?: string
-    picHeight?: number
-    picScale?: number
-    picSize?: number
-    picWidth?: number
+    originWidth?: number
+    picDesc?: string
+    picName?: string
+    picUrl?: string
     resourceStatus?: number
     reviewMessage?: string
     reviewStatus?: number
     reviewTime?: string
-    reviewerId?: number
+    reviewerUser?: number
+    shareQuantity?: number
     spaceId?: number
     tags?: string
+    thumbnailPath?: string
     thumbnailUrl?: string
     updateTime?: string
-    url?: string
     userId?: number
+    viewQuantity?: number
   }
 
-  type PictureEditByBatchRequest = {
-    category?: string
+  type PictureBatchEditRequest = {
+    categoryId?: number
+    idList?: number[]
     inputTagList?: string[]
     nameRule?: string
-    pictureIdList?: number[]
     spaceId?: number
-    tags?: string[]
+    tagList?: number[]
+  }
+
+  type PictureDetailVO = {
+    categoryId?: number
+    categoryName?: string
+    collectQuantity?: number
+    compressFormat?: string
+    compressSize?: number
+    createTime?: string
+    downloadQuantity?: number
+    id?: number
+    isShare?: number
+    likeQuantity?: number
+    loginUserIsCollect?: boolean
+    loginUserIsLike?: boolean
+    originColor?: string
+    originFormat?: string
+    originHeight?: number
+    originScale?: number
+    originSize?: number
+    originWidth?: number
+    picDesc?: string
+    picName?: string
+    picUrl?: string
+    reviewStatus?: number
+    shareQuantity?: number
+    spaceId?: number
+    spaceName?: string
+    spaceType?: number
+    tagList?: string[]
+    tags?: string
+    thumbnailUrl?: string
+    userAvatar?: string
+    userId?: number
+    userName?: string
+    viewQuantity?: number
   }
 
   type PictureEditRequest = {
-    category?: string
+    categoryId?: number
     id?: number
-    inputTagList?: string[]
-    introduction?: string
-    name?: string
+    picDesc?: string
+    picName?: string
+    spaceId?: number
     tags?: string[]
   }
 
+  type PictureGrabRequest = {
+    grabCount?: number
+    grabSource?: string
+    keyword?: string
+    namePrefix?: string
+    randomSeed?: number
+  }
+
+  type PictureHomeVO = {
+    categoryId?: number
+    collectQuantity?: number
+    downloadQuantity?: number
+    id?: number
+    isShare?: number
+    likeQuantity?: number
+    loginUserIsCollect?: boolean
+    loginUserIsLike?: boolean
+    picDesc?: string
+    picName?: string
+    picUrl?: string
+    shareQuantity?: number
+    tags?: string
+    thumbnailUrl?: string
+    userAvatar?: string
+    userId?: number
+    userName?: string
+    viewQuantity?: number
+  }
+
+  type PictureInteractionRequest = {
+    change?: number
+    id?: number
+    type?: number
+  }
+
   type PictureQueryRequest = {
-    category?: string
+    categoryId?: number
     current?: number
+    endCreateTime?: string
     endEditTime?: string
     id?: number
-    introduction?: string
-    name?: string
-    nullSpaceId?: boolean
+    multipleSort?: boolean
+    originColor?: string
+    originFormat?: string
+    originHeight?: number
+    originScale?: number
+    originWidth?: number
     pageSize?: number
-    picFormat?: string
-    picHeight?: number
-    picScale?: number
-    picSize?: number
-    picWidth?: number
+    picDesc?: string
+    picName?: string
     reviewMessage?: string
     reviewStatus?: number
-    reviewerId?: number
+    reviewerUser?: number
     searchText?: string
-    sortField?: string
-    sortOrder?: string
+    sort?: Sort
+    sorts?: Sort[]
     spaceId?: number
+    startCreateTime?: string
     startEditTime?: string
-    tags?: string[]
+    tags?: string
     userId?: number
   }
 
   type PictureReviewRequest = {
     id?: number
+    idList?: number[]
     reviewMessage?: string
     reviewStatus?: number
   }
 
-  type PictureTagCategory = {
-    categoryList?: string[]
-    categoryVOList?: CategoryTagVO[]
-    tagList?: string[]
-    tagVOList?: CategoryTagVO[]
-  }
-
   type PictureUpdateRequest = {
-    category?: string
+    categoryId?: number
     id?: number
-    inputTagList?: string[]
-    introduction?: string
-    name?: string
-    tags?: string[]
-  }
-
-  type PictureUploadByBatchRequest = {
-    category?: string
-    count?: number
-    inputTagList?: string[]
-    namePrefix?: string
-    searchText?: string
+    picDesc?: string
+    picName?: string
+    spaceId?: number
     tags?: string[]
   }
 
   type PictureUploadRequest = {
-    category?: string
-    fileUrl?: string
+    categoryId?: number
     id?: number
+    picDesc?: string
     picName?: string
+    pictureUrl?: string
     spaceId?: number
-    tags?: string
+    tags?: string[]
   }
 
   type PictureVO = {
-    category?: string
     categoryId?: number
+    categoryInfo?: Category
+    collectQuantity?: number
+    compressFormat?: string
+    compressPath?: string
+    compressSize?: number
     createTime?: string
+    downloadQuantity?: number
     editTime?: string
     id?: number
-    introduction?: string
-    name?: string
+    isDelete?: number
+    isShare?: number
+    likeQuantity?: number
+    originColor?: string
+    originFormat?: string
+    originHeight?: number
+    originName?: string
+    originPath?: string
+    originScale?: number
     originSize?: number
     originUrl?: string
-    permissionList?: string[]
-    picColor?: string
-    picFormat?: string
-    picHeight?: number
-    picScale?: number
-    picSize?: number
-    picWidth?: number
+    originWidth?: number
+    picDesc?: string
+    picName?: string
+    picUrl?: string
+    resourceStatus?: number
+    reviewMessage?: string
+    reviewStatus?: number
+    reviewTime?: string
+    reviewerUser?: number
+    shareQuantity?: number
     spaceId?: number
-    tagIds?: number[]
-    tags?: string[]
+    spaceInfo?: Space
+    tagList?: string[]
+    tags?: string
+    thumbnailPath?: string
     thumbnailUrl?: string
     updateTime?: string
-    url?: string
-    user?: UserVO
     userId?: number
+    userInfo?: User
+    viewQuantity?: number
   }
 
-  type SearchPictureByColorRequest = {
-    picColor?: string
-    spaceId?: number
-  }
-
-  type SearchPictureByPictureRequest = {
-    pictureId?: number
-  }
-
-  type SoImageSearchResult = {
-    http?: string
-    https?: string
-    imgUrl?: string
-    imgkey?: string
-    title?: string
+  type Sort = {
+    asc?: boolean
+    field?: string
   }
 
   type Space = {
@@ -551,28 +574,36 @@ declare namespace API {
     spaceLevel?: number
     spaceName?: string
     spaceType?: number
-    totalCount?: number
-    totalSize?: number
     updateTime?: string
+    usedCount?: number
+    usedSize?: number
     userId?: number
+  }
+
+  type SpaceActivateRequest = {
+    spaceName?: string
   }
 
   type SpaceAddRequest = {
     spaceLevel?: number
     spaceName?: string
     spaceType?: number
+    userId?: number
   }
 
-  type SpaceCategoryAnalyzeRequest = {
-    queryAll?: boolean
-    queryPublic?: boolean
-    spaceId?: number
-  }
-
-  type SpaceCategoryAnalyzeResponse = {
-    category?: string
-    count?: number
-    totalSize?: number
+  type SpaceDetailVO = {
+    createTime?: string
+    id?: number
+    maxCount?: number
+    maxSize?: number
+    maxSizeUnit?: string
+    spaceLevel?: number
+    spaceName?: string
+    spaceType?: number
+    usedCount?: number
+    usedSize?: number
+    usedSizeUnit?: string
+    userId?: number
   }
 
   type SpaceEditRequest = {
@@ -580,49 +611,24 @@ declare namespace API {
     spaceName?: string
   }
 
-  type SpaceLevel = {
+  type SpaceLevelVO = {
+    key?: number
+    label?: string
     maxCount?: number
     maxSize?: number
-    text?: string
-    value?: number
   }
 
   type SpaceQueryRequest = {
     current?: number
     id?: number
+    multipleSort?: boolean
     pageSize?: number
-    sortField?: string
-    sortOrder?: string
+    sort?: Sort
+    sorts?: Sort[]
     spaceLevel?: number
     spaceName?: string
     spaceType?: number
     userId?: number
-  }
-
-  type SpaceRankAnalyzeRequest = {
-    topN?: number
-  }
-
-  type SpaceSizeAnalyzeRequest = {
-    queryAll?: boolean
-    queryPublic?: boolean
-    spaceId?: number
-  }
-
-  type SpaceSizeAnalyzeResponse = {
-    count?: number
-    sizeRange?: string
-  }
-
-  type SpaceTagAnalyzeRequest = {
-    queryAll?: boolean
-    queryPublic?: boolean
-    spaceId?: number
-  }
-
-  type SpaceTagAnalyzeResponse = {
-    count?: number
-    tag?: string
   }
 
   type SpaceUpdateRequest = {
@@ -631,30 +637,7 @@ declare namespace API {
     maxSize?: number
     spaceLevel?: number
     spaceName?: string
-  }
-
-  type SpaceUsageAnalyzeRequest = {
-    queryAll?: boolean
-    queryPublic?: boolean
-    spaceId?: number
-  }
-
-  type SpaceUsageAnalyzeResponse = {
-    countUsageRatio?: number
-    maxCount?: number
-    maxSize?: number
-    sizeUsageRatio?: number
-    usedCount?: number
-    usedSize?: number
-  }
-
-  type SpaceUser = {
-    createTime?: string
-    id?: number
-    spaceId?: number
-    spaceRole?: string
-    updateTime?: string
-    userId?: number
+    spaceType?: number
   }
 
   type SpaceUserAddRequest = {
@@ -663,25 +646,7 @@ declare namespace API {
     userId?: number
   }
 
-  type SpaceUserAnalyzeRequest = {
-    queryAll?: boolean
-    queryPublic?: boolean
-    spaceId?: number
-    timeDimension?: string
-    userId?: number
-  }
-
-  type SpaceUserAnalyzeResponse = {
-    count?: number
-    period?: string
-  }
-
   type SpaceUserEditRequest = {
-    id?: number
-    spaceRole?: string
-  }
-
-  type SpaceUserQueryRequest = {
     id?: number
     spaceId?: number
     spaceRole?: string
@@ -691,11 +656,9 @@ declare namespace API {
   type SpaceUserVO = {
     createTime?: string
     id?: number
-    space?: SpaceVO
     spaceId?: number
     spaceRole?: string
-    updateTime?: string
-    user?: UserVO
+    user?: UserDetailVO
     userId?: number
   }
 
@@ -703,23 +666,18 @@ declare namespace API {
     createTime?: string
     editTime?: string
     id?: number
+    isDelete?: number
     maxCount?: number
     maxSize?: number
-    permissionList?: string[]
+    maxSizeUnit?: string
     spaceLevel?: number
     spaceName?: string
     spaceType?: number
-    totalCount?: number
-    totalSize?: number
-    updateTime?: string
-    user?: UserVO
+    usedCount?: number
+    usedSize?: number
+    usedSizeUnit?: string
     userId?: number
-  }
-
-  type TaskMetrics = {
-    failed?: number
-    succeeded?: number
-    total?: number
+    userInfo?: User
   }
 
   type testDownloadFileUsingGETParams = {
@@ -727,22 +685,25 @@ declare namespace API {
     filepath?: string
   }
 
-  type uploadPictureUsingPOSTParams = {
-    category?: string
-    fileUrl?: string
+  type uploadPictureByFileUsingPOSTParams = {
+    categoryId?: number
     id?: number
+    picDesc?: string
     picName?: string
+    pictureUrl?: string
     spaceId?: number
-    tags?: string
+    tags?: string[]
   }
 
   type User = {
+    admin?: boolean
     birthday?: string
     createTime?: string
     editTime?: string
     id?: number
-    inviteUser?: number
+    inviteUserId?: number
     isDelete?: number
+    isDisabled?: number
     shareCode?: string
     updateTime?: string
     userAccount?: string
@@ -760,11 +721,44 @@ declare namespace API {
   }
 
   type UserAddRequest = {
+    birthday?: string
+    userAccount?: string
+    userAvatar?: string
+    userEmail?: string
+    userName?: string
+    userPhone?: string
+    userProfile?: string
+    userRole?: string
+  }
+
+  type UserDetailVO = {
+    birthday?: string
+    createTime?: string
+    id?: number
+    inviteUserId?: number
+    isDisabled?: number
+    shareCode?: string
+    userAccount?: string
+    userAvatar?: string
+    userEmail?: string
+    userName?: string
+    userPhone?: string
+    userProfile?: string
+    userRole?: string
+    vipExpireTime?: string
+    vipNumber?: number
+    vipSign?: string
+  }
+
+  type UserEditRequest = {
+    birthday?: string
+    id?: number
+    shareCode?: string
     userAccount?: string
     userAvatar?: string
     userName?: string
+    userPhone?: string
     userProfile?: string
-    userRole?: string
   }
 
   type UserLoginRequest = {
@@ -776,29 +770,39 @@ declare namespace API {
   }
 
   type UserQueryRequest = {
+    birthday?: string
     current?: number
     id?: number
+    inviteUserId?: number
+    multipleSort?: boolean
     pageSize?: number
-    sortField?: string
-    sortOrder?: string
+    shareCode?: string
+    sort?: Sort
+    sorts?: Sort[]
     userAccount?: string
+    userEmail?: string
     userName?: string
+    userPhone?: string
     userProfile?: string
     userRole?: string
+    vipExpireTime?: string
+    vipNumber?: number
+    vipSign?: string
   }
 
   type UserRegisterRequest = {
-    checkPassword?: string
     codeKey?: string
     codeValue?: string
     userAccount?: string
-    userPassword?: string
     userEmail?: string
   }
 
   type UserUpdateRequest = {
     birthday?: string
     id?: number
+    inviteUserId?: number
+    isDisabled?: number
+    shareCode?: string
     userAccount?: string
     userAvatar?: string
     userEmail?: string
@@ -813,18 +817,21 @@ declare namespace API {
     vipSign?: string
   }
 
-  type UserVipExchangeRequest = {
-    vipCode?: string
-  }
-
   type UserVO = {
     birthday?: string
     createTime?: string
+    editTime?: string
     id?: number
+    inviteUserId?: number
+    isDelete?: number
+    isDisabled?: number
+    shareCode?: string
+    updateTime?: string
     userAccount?: string
     userAvatar?: string
     userEmail?: string
     userName?: string
+    userPassword?: string
     userPhone?: string
     userProfile?: string
     userRole?: string

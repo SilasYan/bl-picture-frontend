@@ -47,7 +47,7 @@ import {
   getPictureVoByIdUsingGet,
   searchPictureByPictureIsSoUsingPost,
   searchPictureByPictureUsingPost
-} from '@/api/pictureController'
+} from '@/api2/pictureController'
 import { message } from 'ant-design-vue'
 
 const route = useRoute()

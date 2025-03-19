@@ -4,6 +4,23 @@ export const PIC_REVIEW_STATUS_ENUM = {
   REJECT: 2,
 }
 
+export const PIC_INTERACTION_TYPE_ENUM = {
+  LIKE: 0,
+  COLLECT: 1,
+}
+
+export const PIC_SHEAR_STATUS_ENUM = {
+  SHEAR: 0,
+  NOT_SHEAR: 1,
+}
+
+export const PIC_FORMAT_STATUS_MAP = {
+  jpg: 'JPG',
+  png: 'PNG',
+  gif: 'GIF',
+  other: '其他',
+}
+
 export const PIC_REVIEW_STATUS_MAP = {
   0: '待审核',
   1: '通过',
@@ -15,6 +32,13 @@ export const PIC_STATUS_TAG_COLOR = {
   1: 'blue',
   2: 'gray',
 }
+
+export const PIC_FORMAT_STATUS_OPTIONS = Object.keys(PIC_FORMAT_STATUS_MAP).map((key) => {
+  return {
+    label: PIC_FORMAT_STATUS_MAP[key],
+    value: key,
+  }
+})
 
 export const PIC_REVIEW_STATUS_OPTIONS = Object.keys(PIC_REVIEW_STATUS_MAP).map((key) => {
   return {
